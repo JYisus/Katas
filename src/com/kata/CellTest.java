@@ -14,26 +14,42 @@ class CellTest {
 
     @DisplayName("Dead cell is created")
     @Test
-    public void a_dead_cell_is_created() {
+    public void deadCellCreation() {
         assertEquals(0, deadCell.getStatus(), "A dead cell is created");
     }
 
     @DisplayName("Living cell is created")
     @Test
-    public void a_living_cell_is_created() {
+    public void livingCellCreation() {
         assertEquals(1, livingCell.getStatus(), "A living cell is created");
     }
 
     @DisplayName("Dead cell is represented")
     @Test
-    public void a_dead_cell_is_correctly_represented() {
+    public void deadCellRepresentation() {
         assertEquals("·", deadCell.toString(), "The dead cell is represented correctly by the character ·");
     }
 
-    @DisplayName("Living cell is created")
+    @DisplayName("Living cell is representated")
     @Test
-    public void a_living_cell_is_correctly_represented() {
+    public void livingCellRepresentation() {
         assertEquals("x", livingCell.toString(), "The dead cell is represented correctly by the character x");
+    }
+
+    @DisplayName("Living cell is killed")
+    @Test
+    public void killingLivingCell() {
+        Cell cell = new Cell(1);
+        cell.kill();
+        assertEquals(0, cell.getStatus(), "The living cell now is dead");
+    }
+
+    @DisplayName("Dead cell comes to life")
+    @Test
+    public void reviveDeadCell() {
+        Cell cell = new Cell(0);
+        cell.revive();
+        assertEquals(1, cell.getStatus(), "The dead cell now is living");
     }
 
 }
