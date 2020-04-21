@@ -12,4 +12,8 @@ public class Grid {
     public int getFiles() {
         return files;
     }
+
+    public int getColumns() {
+        return columns;
+    }
 }

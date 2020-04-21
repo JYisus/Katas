@@ -17,7 +17,14 @@ class GridTest {
     @Test
     public void correctNumberOfFiles() {
         Grid grid = new Grid(5,5);
-        assertEquals(5, grid.getFiles(),"The grid is created");
+        assertEquals(5, grid.getFiles(),"Files correctly created");
+    }
+
+    @DisplayName("Grid have correct columns")
+    @Test
+    public void correctNumberOfColumns() {
+        Grid grid = new Grid(5,5);
+        assertEquals(5, grid.getColumns(),"Columns correctly created");
     }
 
 }
