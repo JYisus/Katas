@@ -24,4 +24,10 @@ class CellTest {
         assertEquals("·", cell.toString(), "The dead cell is represented correctly by the character ·");
     }
 
+    @Test
+    public void a_living_cell_is_correctly_represented() {
+        Cell cell = new Cell(1);
+        assertEquals("x", cell.toString(), "The dead cell is represented correctly by the character x");
+    }
+
 }

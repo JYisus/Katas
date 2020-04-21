@@ -10,4 +10,10 @@ public class Cell {
     public int getStatus() {
         return status;
     }
+
+    @Override
+    public String toString() {
+        if(status == 1) return "x";
+        return "·";
+    }
 }
