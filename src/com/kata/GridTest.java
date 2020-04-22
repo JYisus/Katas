@@ -26,15 +26,29 @@ class GridTest {
     @DisplayName("Grid have correct files")
     @Test
     public void correctNumberOfFiles() {
-        Grid grid = new Grid(5,5);
+        Grid grid = new Grid(5,10);
         assertEquals(5, grid.getFiles(),"Files correctly created");
     }
 
     @DisplayName("Grid have correct columns")
     @Test
     public void correctNumberOfColumns() {
-        Grid grid = new Grid(5,5);
-        assertEquals(5, grid.getColumns(),"Columns correctly created");
+        Grid grid = new Grid(5,10);
+        assertEquals(10, grid.getColumns(),"Columns correctly created");
     }
+
+    @DisplayName("A cell matrix is created with the grid")
+    @Test
+    public void cellMatrixIsCreated() {
+        Grid grid = new Grid(5, 10);
+        assertTrue(grid.getCells() instanceof Cell[][]);
+    }
+    @DisplayName("The cells matrix have correct files")
+    @Test
+    public void cellMatrixIsCreatedWithIndicatedFiles() {
+        Grid grid = new Grid(5, 10);
+        assertEquals(5, grid.getCells().length);
+    }
+
 
 }
