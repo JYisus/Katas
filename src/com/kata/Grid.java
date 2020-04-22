@@ -6,14 +6,16 @@ public class Grid {
     Grid(int files, int columns) throws IllegalArgumentException {
         if ((files <= 0) || (columns <= 0)) throw new IllegalArgumentException("Can't create a grid with <= 0 files or columns");
 
-        Cell cellsMatrix[][] = new Cell[files][columns];
+        InitializeCells(files, columns);
+    }
+
+    private void InitializeCells(int files, int columns) {
+        this.cells = new Cell[files][columns];
         for (int i = 0; i < files; i++) {
             for(int j = 0; j < columns; j++) {
-                cellsMatrix[i][j] = new Cell(0);
+                this.cells[i][j] = new Cell(0);
             }
         }
-
-        this.cells = cellsMatrix;
     }
 
     public int getFiles() {
@@ -26,5 +28,9 @@ public class Grid {
 
     public Cell[][] getCells() {
         return cells;
+    }
+
+    public Cell getCell(int file, int column) throws ArrayIndexOutOfBoundsException {
+        return cells[file][column];
     }
 }

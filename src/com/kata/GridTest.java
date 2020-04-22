@@ -41,7 +41,7 @@ class GridTest {
     @Test
     public void cellMatrixIsCreated() {
         Grid grid = new Grid(5, 10);
-        assertTrue(grid.getCells() instanceof Cell[][]);
+        assertNotNull(grid.getCells());
     }
     @DisplayName("The cells matrix have correct files")
     @Test
@@ -50,5 +50,19 @@ class GridTest {
         assertEquals(5, grid.getCells().length);
     }
 
+    @DisplayName("A cell is getted from the grid")
+    @Test
+    public void getCellFromGrid() {
+        Grid grid = new Grid(5, 10);
+        assertNotNull(grid.getCell(0, 1));
+    }
 
+    @DisplayName("Can't access to invalid cell of grid")
+    @Test
+    public void getInvalidCell() {
+        Grid grid = new Grid(5, 10);
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            grid.getCell(-2,10);
+        });
+    }
 }
