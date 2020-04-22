@@ -54,6 +54,14 @@ class CellTest {
         assertEquals(0, cell.getStatus(), "The living cell now is dead");
     }
 
+    @DisplayName("You can't kill a dead cell")
+    @Test
+    public void killingDeadCell() {
+        assertThrows(IllegalStateException.class, () -> {
+            deadCell.kill();
+        });
+    }
+
     @DisplayName("Dead cell comes to life")
     @Test
     public void reviveDeadCell() {

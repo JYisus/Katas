@@ -12,8 +12,8 @@ public class Cell {
         return status;
     }
 
-    // TODO: Exception should be thrown if cell is already dead
-    public void kill() {
+    public void kill() throws IllegalStateException{
+        if (status == 0) throw new IllegalStateException("You can't kill a dead cell");
         status = 0;
     }
 
