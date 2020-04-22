@@ -6,11 +6,21 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GridTest {
+
     @DisplayName("Grid is created")
     @Test
     public void gridCreation() {
         Grid grid = new Grid(5,5);
         assertNotNull(grid, "The grid is created");
+    }
+
+    @DisplayName("Can't create a grid with <= 0 files or columns")
+    @Test
+    public void invalidGridCreation() {
+        assertThrows(IllegalArgumentException.class, () -> {
+           new Grid(0,-5);
+        });
+
     }
 
     @DisplayName("Grid have correct files")
