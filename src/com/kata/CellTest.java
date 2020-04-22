@@ -1,29 +1,27 @@
 package com.kata;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
-
-import javax.management.InvalidAttributeValueException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CellTest {
+    static final int DEAD_STATUS = 0;
+    static final int LIVING_STATUS = 1;
 
-    private Cell deadCell = new Cell(0);
-    private Cell livingCell = new Cell(1);
+    private Cell deadCell = new Cell(DEAD_STATUS);
+    private Cell livingCell = new Cell(LIVING_STATUS);
 
     @DisplayName("Dead cell is created")
     @Test
     public void deadCellCreation() {
-        assertEquals(0, deadCell.getStatus(), "A dead cell is created");
+        assertEquals(DEAD_STATUS, deadCell.getStatus(), "A dead cell is created");
     }
 
     @DisplayName("Living cell is created")
     @Test
     public void livingCellCreation() {
-        assertEquals(1, livingCell.getStatus(), "A living cell is created");
+        assertEquals(LIVING_STATUS, livingCell.getStatus(), "A living cell is created");
     }
 
     @DisplayName("Cell creator throes exception when invalid status is indicated")
@@ -49,9 +47,9 @@ class CellTest {
     @DisplayName("Living cell is killed")
     @Test
     public void killingLivingCell() {
-        Cell cell = new Cell(1);
+        Cell cell = new Cell(LIVING_STATUS);
         cell.kill();
-        assertEquals(0, cell.getStatus(), "The living cell now is dead");
+        assertEquals(DEAD_STATUS, cell.getStatus(), "The living cell now is dead");
     }
 
     @DisplayName("You can't kill a dead cell")
@@ -65,9 +63,9 @@ class CellTest {
     @DisplayName("Dead cell comes to life")
     @Test
     public void reviveDeadCell() {
-        Cell cell = new Cell(0);
+        Cell cell = new Cell(DEAD_STATUS);
         cell.revive();
-        assertEquals(1, cell.getStatus(), "The dead cell now is living");
+        assertEquals(LIVING_STATUS, cell.getStatus(), "The dead cell now is living");
     }
 
     @DisplayName("You can't reviva a living cell")
