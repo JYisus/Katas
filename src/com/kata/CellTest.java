@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 
+import javax.management.InvalidAttributeValueException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CellTest {
@@ -22,6 +24,14 @@ class CellTest {
     @Test
     public void livingCellCreation() {
         assertEquals(1, livingCell.getStatus(), "A living cell is created");
+    }
+
+    @DisplayName("Cell creator throes exception when invalid status is indicated")
+    @Test
+    public void invalidStatusException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Cell(3);
+        });
     }
 
     @DisplayName("Dead cell is represented")

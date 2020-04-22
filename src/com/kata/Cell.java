@@ -3,7 +3,8 @@ package com.kata;
 public class Cell {
     private int status;
 
-    Cell(int status){
+    Cell(int status) throws IllegalArgumentException {
+        if ((status != 0) && (status != 1)) throw new IllegalArgumentException("Not valid status for a cell");
         this.status = status;
     }
 
