@@ -33,4 +33,12 @@ public class Grid {
     public Cell getCell(int file, int column) throws ArrayIndexOutOfBoundsException {
         return cells[file][column];
     }
+
+    public void setLivingCell(int file, int column) throws ArrayIndexOutOfBoundsException {
+        getCell(file, column).revive();
+    }
+
+    public int getNeighbours(int file, int column) throws ArrayIndexOutOfBoundsException {
+        return 0;
+    }
 }
