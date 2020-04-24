@@ -38,7 +38,28 @@ public class Grid {
         getCell(file, column).revive();
     }
 
+    public void clean() {
+        for(Cell[] cellFile : cells){
+            for(Cell cell : cellFile) {
+                if(cell.getStatus() == 1) {
+                    cell.kill();
+                }
+            }
+        }
+    }
+
     public int getNeighbours(int file, int column) throws ArrayIndexOutOfBoundsException {
-        return 0;
+        int neighbours = 0;
+        for(int i = -1; i <= 1; i++) {
+            if (column+i < 0) continue;
+            for(int j = -1; j <= 1; j++) {
+                if (file+j < 0 || (j == 0 && (i == 0))) continue;
+                if(cells[file+i][column+j].getStatus() == 1) {
+                    neighbours++;
+                }
+            }
+        }
+
+        return neighbours;
     }
 }

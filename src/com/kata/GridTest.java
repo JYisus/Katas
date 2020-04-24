@@ -1,5 +1,7 @@
 package com.kata;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GridTest {
     private Grid grid = new Grid(5,10);
+
+    @AfterEach
+    @Override
+    public void finalize() {
+        grid.clean();
+    }
 
     @DisplayName("Grid is created")
     @Test
@@ -65,7 +73,7 @@ class GridTest {
     @DisplayName("A Cell is set to live")
     @Test
     public void setCellToLive() {
-        grid.setLivingCell(0,1);
+        grid.setLivingCell(0,0);
         assertEquals(1, grid.getCell(0,0).getStatus());
     }
 
@@ -77,6 +85,18 @@ class GridTest {
         });
     }
 
+    @DisplayName("If the grid is cleaned, all cells are dead")
+    @Test
+    public void cleanGrid() {
+        int count = 0;
+        for (Cell[] cellFile : grid.getCells()) {
+            for (Cell cell : cellFile) {
+                if(cell.getStatus() == 1) count++;
+            }
+        }
+        assertEquals(0, count);
+    }
+
     @DisplayName("An alone cell have no neighbours")
     @Test
     public void getNeighboursOfAloneCell() {
@@ -84,11 +104,31 @@ class GridTest {
         assertEquals(0, neighbours);
     }
 
-    @DisplayName("A cell near other have 1 neighbour")
+    @DisplayName("A cell next to another have 1 neighbour")
     @Test
-    public void getNeighboursOf2NearCells() {
+    public void getNeighboursOf2NextToCells() {
         grid.setLivingCell(0,1);
         int neighbours = grid.getNeighbours(0,0);
         assertEquals(1, neighbours);
     }
+
+    @DisplayName("A cell below or above to another have 1 neighbour")
+    @Test
+    public void getNeighboursOf2BelowOrAboveCells() {
+        grid.setLivingCell(0,0);
+        grid.setLivingCell(1,0);
+        int neighbours = grid.getNeighbours(0,0);
+        assertEquals(1, neighbours);
+    }
+
+    @DisplayName("A cell with 2 cells near have 2 neighbours")
+    @Test
+    public void getNeighboursOf2NearCells() {
+        grid.setLivingCell(0,0);
+        grid.setLivingCell(1,0);
+        grid.setLivingCell(0,1);
+        int neighbours = grid.getNeighbours(0,0);
+        assertEquals(2, neighbours);
+    }
+
 }
