@@ -1,5 +1,7 @@
 package com.kata;
 
+import javax.swing.event.CellEditorListener;
+
 public class Grid {
     private Cell[][] cells;
 
@@ -51,9 +53,9 @@ public class Grid {
     public int getNeighbours(int file, int column) throws ArrayIndexOutOfBoundsException {
         int neighbours = 0;
         for(int i = -1; i <= 1; i++) {
-            if (column+i < 0) continue;
+            if (file+i < 0 || file+i >= cells.length) continue;
             for(int j = -1; j <= 1; j++) {
-                if (file+j < 0 || (j == 0 && (i == 0))) continue;
+                if (column+j < 0 || column+j >= cells[file+i].length || (j == 0 && (i == 0))) continue;
                 if(cells[file+i][column+j].getStatus() == 1) {
                     neighbours++;
                 }
@@ -61,5 +63,46 @@ public class Grid {
         }
 
         return neighbours;
+    }
+
+    public void nextState() {
+        Grid newGrid = this;
+        Cell[][] nextCells = new Cell[getFiles()][getColumns()];
+
+        for(int i = 0; i < cells.length; i++) {
+            for(int j = 0; j < cells[i].length; j++) {
+                if((getNeighbours(i, j) < 2) && (cells[i][j].getStatus() == 1)) {
+                    nextCells[i][j] = new Cell(0);
+                    continue;
+                }
+                if((getNeighbours(i, j) > 3) && (cells[i][j].getStatus() == 1)) {
+                    nextCells[i][j] = new Cell(0);
+                    continue;
+                }
+                if((getNeighbours(i, j) == 3) && (cells[i][j].getStatus() == 0)) {
+                    nextCells[i][j] = new Cell(1);
+                    continue;
+                }
+                if(cells[i][j].getStatus() == 1) {
+                    nextCells[i][j] = new Cell(1);
+                } else {
+                    nextCells[i][j] = new Cell(0);
+                }
+            }
+        }
+
+        this.cells = nextCells;
+    }
+
+    @Override
+    public String toString() {
+        String gridString = "Grid   " + getFiles() + "x" + getColumns() + "\n";
+        for(Cell[] cellFiles : cells) {
+            for(Cell cell : cellFiles) {
+                gridString+=cell;
+            }
+            gridString+="\n";
+        }
+        return gridString;
     }
 }

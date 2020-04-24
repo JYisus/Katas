@@ -131,4 +131,50 @@ class GridTest {
         assertEquals(2, neighbours);
     }
 
+    // 1. Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+    @DisplayName("Living cell with <2 neighbours dies")
+    @Test
+    public void nextStateLivingCellUnderpopulation() {
+        grid.setLivingCell(0,0);
+        grid.setLivingCell(1,0);
+        grid.nextState();
+        assertEquals(0,grid.getCell(0,0).getStatus());
+    }
+
+    // 2. Any live cell with more than three live neighbours dies, as if by overcrowding.
+    @DisplayName("Living cell with >3 neighbours dies")
+    @Test
+    public void nextStateLivingCelOvercrowding() {
+        grid.setLivingCell(0,0);
+        grid.setLivingCell(1,0);
+        grid.setLivingCell(0,1);
+        grid.setLivingCell(1,1);
+        grid.setLivingCell(0,2);
+        grid.nextState();
+        assertEquals(0,grid.getCell(0,1).getStatus());
+    }
+
+    // 3. Any live cell with two or three live neighbours lives on to the next generation.
+    @DisplayName("Living cell with 2 or 3 neighbours still living")
+    @Test
+    public void nextStateLivingStillLiving() {
+        grid.setLivingCell(0,0);
+        grid.setLivingCell(0,1);
+        grid.setLivingCell(1,1);
+        grid.setLivingCell(0,2);
+        grid.nextState();
+        assertEquals(1,grid.getCell(0,0).getStatus());
+        assertEquals(1,grid.getCell(0,1).getStatus());
+    }
+
+    // 4. Any dead cell with exactly three live neighbours becomes a live cell.
+    @DisplayName("Dead cell with ==3 neighbours revives")
+    @Test
+    public void nextStateDeadCellRevives() {
+        grid.setLivingCell(0,0);
+        grid.setLivingCell(1,1);
+        grid.setLivingCell(0,2);
+        grid.nextState();
+        assertEquals(1,grid.getCell(0,1).getStatus());
+    }
 }
