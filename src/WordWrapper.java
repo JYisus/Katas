@@ -1,18 +1,22 @@
 public class WordWrapper {
-    public static String WrapText(String text, int columnWidth) throws IllegalArgumentException {
-        if (columnWidth < 1) {
-            throw new IllegalArgumentException("The column width must be at least 1");
-        }
-        if(text == null) {
-            return "";
-        }
-        String wrappedText = ""; //text.substring(0,columnWidth);
-        String remainingText = text;
-        while(remainingText.length() > columnWidth) {
-            wrappedText = wrappedText.concat(remainingText.substring(0, columnWidth)).concat("\n");
-            remainingText = remainingText.substring(columnWidth);
-        }
+    public static String WrapText(String auxText, int auxColumnWidth) throws IllegalArgumentException {
+        Text text = Text.createText(auxText);
+        ColumnWidth columnWidth = ColumnWidth.createColumnWidth(auxColumnWidth);
 
-        return wrappedText.concat(remainingText);
+        Text wrappedText = Text.createText("");
+
+        while(!text.fitsIn(columnWidth)) {
+            wrappedText = wrappedText.concat(text.wrapLine(columnWidth));
+            text = text.remainingText(columnWidth);
+        }
+        return wrappedText.concat(text).toString();
+    }
+
+
+    public static String WrapTextRecursive(String auxText, int auxColumnWidth) throws IllegalArgumentException {
+        Text text = Text.createText(auxText);
+        ColumnWidth columnWidth = ColumnWidth.createColumnWidth(auxColumnWidth);
+
+        return text.wordWrap(columnWidth).toString();
     }
 }
