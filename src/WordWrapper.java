@@ -1,5 +1,5 @@
 public class WordWrapper {
-    public static String WrapText(String auxText, int auxColumnWidth) throws IllegalArgumentException {
+    public static String WrapTextLoop(String auxText, int auxColumnWidth) throws IllegalArgumentException {
         Text text = Text.createText(auxText);
         ColumnWidth columnWidth = ColumnWidth.createColumnWidth(auxColumnWidth);
 
