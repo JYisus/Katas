@@ -1,4 +1,4 @@
-export class FizzBuzz {
+class FizzBuzz {
     constructor(private rules: TranslateRule[]) {}
     addRule(newRule: TranslateRule) {
         this.rules.push(newRule);
@@ -26,7 +26,7 @@ interface TranslateRule {
     translateNumber(givenNumber: number): string;
 }
 
-export class FizzRule implements TranslateRule {
+class FizzRule implements TranslateRule {
     match(givenNumber: number): boolean {
         return givenNumber%3 == 0;
     }
@@ -35,7 +35,7 @@ export class FizzRule implements TranslateRule {
     }
 }
 
-export class BuzzRule implements TranslateRule {
+class BuzzRule implements TranslateRule {
     match(givenNumber: number): boolean {
         return givenNumber%5 == 0;
     }
@@ -44,7 +44,7 @@ export class BuzzRule implements TranslateRule {
     }
 }
 
-export class FizzBuzzRule implements TranslateRule {
+class FizzBuzzRule implements TranslateRule {
     match(givenNumber: number): boolean {
         return givenNumber%15 == 0;
     }
@@ -53,11 +53,19 @@ export class FizzBuzzRule implements TranslateRule {
     }
 }
 
-export class FazzRule implements TranslateRule {
+class FazzRule implements TranslateRule {
     match(givenNumber: number): boolean {
         return givenNumber%7 == 0;
     }
     translateNumber(): string {
         return "Fazz";
     }
+}
+
+export {
+    FizzBuzz,
+    FizzBuzzRule,
+    FizzRule,
+    BuzzRule,
+    FazzRule
 }
