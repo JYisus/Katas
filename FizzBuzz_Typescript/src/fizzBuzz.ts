@@ -49,6 +49,15 @@ export class FizzBuzzRule implements TranslateRule {
         return givenNumber%15 == 0;
     }
     translateNumber(): string {
-        return "FizzBuzz"
+        return "FizzBuzz";
+    }
+}
+
+export class FazzRule implements TranslateRule {
+    match(givenNumber: number): boolean {
+        return givenNumber%7 == 0;
+    }
+    translateNumber(): string {
+        return "Fazz";
     }
 }
