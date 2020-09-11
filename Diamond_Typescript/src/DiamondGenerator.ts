@@ -1,25 +1,29 @@
 class DiamondGenerator {
-    constructor(private InitialLetter: string) {}
+    private InitialASCIIvalue: number;
+    constructor(private InitialLetter: string) {
+        this.InitialASCIIvalue = InitialLetter.charCodeAt(0);
+    }
 
     generate(maxLetter: string): string {
         if (maxLetter == "") return "";
 
         if (maxLetter == "A") return this.generateLine(maxLetter,maxLetter);
 
-        let diamondLength: number = maxLetter.charCodeAt(0) - this.InitialLetter.charCodeAt(0);
-        let detachedString: string[] = [];
+        const maxASCIIvalue: number = maxLetter.charCodeAt(0);
+        const diamondLength: number = maxASCIIvalue - this.InitialASCIIvalue;
+        const detachedString: string[] = [];
+
         for (let i=0; i<(diamondLength); i++) {
-            // console.log(this.generateLine(String.fromCharCode(this.InitialLetter.charCodeAt(0)+i),maxLetter));
-            detachedString.push(this.generateLine(String.fromCharCode(this.InitialLetter.charCodeAt(0)+i),maxLetter));
+            const currentLetter = String.fromCharCode(this.InitialASCIIvalue+i);
+            detachedString.push(this.generateLine(currentLetter,maxLetter));
         }
 
-        let reverseDetachedString: string[] = [...detachedString];
-        reverseDetachedString = reverseDetachedString.reverse();
-        detachedString.push(this.generateLine(maxLetter,maxLetter));
-        detachedString = detachedString.concat(reverseDetachedString);
-        return detachedString.join("\n");
+        const reverseDetachedString: string[] = [...detachedString];
+        reverseDetachedString.reverse();
+        
+        detachedString.push(this.generateLine(maxLetter,maxLetter), ...reverseDetachedString);
 
-        // return `${this.generateLine("A",maxLetter)}\n${this.generateLine(maxLetter,maxLetter)}\n${this.generateLine("A",maxLetter)}`
+        return detachedString.join("\n");
     }
 
     generateLine(letter: string, maxLetter: string) {
@@ -30,9 +34,7 @@ class DiamondGenerator {
         if (letter == "A") {
             return `${" ".repeat(spaceFromLetterToMaxLetter)}${letter}`
         }
-
-        let initalLetterValue: number = this.InitialLetter.charCodeAt(0);
-        let spacesBetweenLetters: number = 2*letterValue-2*initalLetterValue-1;
+        let spacesBetweenLetters: number = 2*letterValue-2*this.InitialASCIIvalue-1;
 
         return `${" ".repeat(spaceFromLetterToMaxLetter)}${letter}${" ".repeat(spacesBetweenLetters)}${letter}`;
 
