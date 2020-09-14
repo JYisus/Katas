@@ -4,8 +4,12 @@ class DictionaryReplacer {
 
         let finalStringSparsed: string[] = [];
         for (let word of stringBeforeReplace.split(" ")) {
-            if (word.match('\$.*\$') && dictionary.hasOwnProperty(word.slice(1,word.length-1))) {
-                    finalStringSparsed.push(dictionary[word.slice(1,word.length-1)]);
+            const wordWithoutDollars: string = word.slice(1,word.length-1);
+            const isWordInDictionary: boolean = dictionary.hasOwnProperty(wordWithoutDollars);
+
+            if (word.match('\$.*\$') && isWordInDictionary) {
+                const wordSubstituted: string = dictionary[wordWithoutDollars];
+                finalStringSparsed.push(wordSubstituted);
             } else {
                 finalStringSparsed.push(word);
             }
