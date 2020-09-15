@@ -2,10 +2,9 @@ class DictionaryReplacer {
     replace(stringBeforeReplace: string, dictionary: Object): string {
         if (stringBeforeReplace === "" || Object.keys(dictionary).length === 0) return "";
 
-        let finalStringSparsed: string[] = [];
+        const stringSplited: string[] = stringBeforeReplace.split(" ");
 
-        finalStringSparsed = stringBeforeReplace.split(" ").map((word) => this.replaceWordsBetweenDollars(word,dictionary))
-        
+        let finalStringSparsed: string[] = stringSplited.map((word) => this.replaceWordsBetweenDollars(word,dictionary))
 
         return finalStringSparsed.join(" ");
     }
