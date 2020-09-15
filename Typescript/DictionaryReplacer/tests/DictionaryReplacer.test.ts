@@ -48,4 +48,13 @@ describe("DictionaryReplacer", () => {
 
         expect(dictionaryReplacer.replace(stringBeforeReplace, dictionary)).toBe(stringAfterReplace);
     });
+
+    it("replace the word, even if it isn't between whitespaces", () => {
+        const stringBeforeReplace = "Sr.$user$,";
+        const dictionary = {"user":"John Doe", "email":"john@doe.com"}
+
+        const stringAfterReplace = "Sr.John Doe,";
+
+        expect(dictionaryReplacer.replace(stringBeforeReplace, dictionary)).toBe(stringAfterReplace);
+    });
 });

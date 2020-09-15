@@ -10,12 +10,17 @@ class DictionaryReplacer {
     }
 
     private replaceWordsBetweenDollars(word: string, dictionary: Object): string {
-        const wordWithoutDollars: string = word.slice(1,word.length-1);
-        const isWordInDictionary: boolean = dictionary.hasOwnProperty(wordWithoutDollars);
 
-        if (word.match('\$.*\$') && isWordInDictionary) {
+        if (word.match('.*\$.*\$.*')) {
+            const firstDollar: number = word.indexOf("$");
+            const secondDollar: number = word.indexOf("$",firstDollar+1);
+            const stringBeforDollar: string = word.slice(0,firstDollar);
+            const stringAfterDollar: string = word.slice(secondDollar+1, word.length)
+            const wordWithoutDollars: string = word.slice(firstDollar+1,secondDollar);
+            const isWordInDictionary: boolean = dictionary.hasOwnProperty(wordWithoutDollars);
             const wordSubstituted: string = dictionary[wordWithoutDollars];
-            return wordSubstituted;
+            
+             if (isWordInDictionary) return stringBeforDollar+wordSubstituted+stringAfterDollar;
         }
 
         return word;
